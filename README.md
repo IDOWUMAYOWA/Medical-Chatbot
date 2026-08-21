@@ -1,5 +1,7 @@
 # Medical-Chatbot
 
+![CI/CD](https://github.com/IDOWUMAYOWA/Medical-Chatbot/actions/workflows/cicd.yaml/badge.svg)
+
 A retrieval-augmented generation (RAG) chatbot that answers medical questions from a curated medical textbook, deployed to AWS through an automated CI/CD pipeline.
 
 ![Medical Chatbot](docs/images/HIV_1.png)
@@ -13,7 +15,7 @@ General-purpose language models answer medical questions from parametric memory,
 The result is a chatbot whose answers are traceable to source material, wrapped in a Flask web interface and shipped to EC2 as a container image on every push to `main`.
 
 ## Architecture
-![Architecture](docs/images/architecture.png)
+![Architecture](docs/images/arch.png)
 
 ## How It Works
 
@@ -202,6 +204,10 @@ Every push to `main` triggers a two-stage GitHub Actions workflow.
 ```
 
 API keys are injected as environment variables from GitHub Secrets at container start, so no credential is ever written into the image or the repository.
+
+![CI/CD pipeline run](docs/images/cicd-run.png)
+
+The two jobs run on different infrastructure. Continuous Integration executes on a GitHub-hosted `ubuntu-latest` runner, which builds the image and pushes it to ECR. Continuous Deployment then executes on a `self-hosted` runner installed on the EC2 instance itself, pulling that image and starting the container locally. This split means GitHub never needs inbound network access to the instance — the runner polls outward for work, so no SSH key is shared and no port is opened for the deployment path.
 
 ## Repository Structure
 ```

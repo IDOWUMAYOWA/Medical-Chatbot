@@ -1,7 +1,5 @@
 # Medical-Chatbot
 
-![CI/CD](https://github.com/IDOWUMAYOWA/Medical-Chatbot/actions/workflows/cicd.yaml/badge.svg)
-
 A retrieval-augmented generation (RAG) chatbot that answers medical questions from a curated medical textbook, deployed to AWS through an automated CI/CD pipeline.
 
 ![Medical Chatbot](docs/images/HIV_1.png)
